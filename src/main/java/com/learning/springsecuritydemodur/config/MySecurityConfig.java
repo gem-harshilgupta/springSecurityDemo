@@ -26,9 +26,10 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
 //    }
 
 //    ROLE BASED AUTHENTICATION
-    @Override
+//    @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+                .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/public/**").hasRole("NORMAL")
                 .antMatchers("/users/**").hasRole("ADMIN")
