@@ -1,20 +1,18 @@
 package com.learning.springsecuritydemodur.config;
 
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 
 @EnableWebSecurity // So we don't @Configuration as @EnableWebSecrity comes up with by default
 public class MySecurityConfig extends WebSecurityConfigurerAdapter {
 
- // NORMAL HTTP BASED AUTHENTICATION
+    // NORMAL HTTP BASED AUTHENTICATION
 //    @Override
 //    protected void configure(HttpSecurity http) throws Exception {
 //        http
@@ -25,7 +23,7 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
 //                .httpBasic();
 //    }
 
-//    ROLE BASED AUTHENTICATION
+    //    ROLE BASED AUTHENTICATION
 //    @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
@@ -36,7 +34,7 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest()
                 .authenticated()
                 .and()
-                .httpBasic();
+                .formLogin(); // for form based authentication
     }
 
 //IN MEMORY AUTHENTICATION WITH NoOpPasswordEncoder
@@ -54,7 +52,7 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder(10);
     }
 }
